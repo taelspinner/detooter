@@ -15,6 +15,12 @@
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
 // ==/UserScript==
 
+function get_relevant_elems(div, tag) {
+    div.find(tag).each(function(i) {
+        search_and_delet(this);
+    });
+}
+
 function search_and_delet(elem) {
     const spans = $(elem).find("span");
     if(spans.length > 0) {
@@ -55,32 +61,26 @@ $(document).ready(function() {
             if(mutation.type == "childList") {
                 /* trigger on initial post loading */
                 if($(mutation.target).hasClass("item-list")) {
-                    $(mutation.addedNodes).find("p").each(function(i) {
-                        search_and_delet(this);
-                    });
-                    $(mutation.target.children).find("p").each(function(i) {
-                        search_and_delet(this);
-                    });
+                    get_relevant_elems($(mutation.addedNodes), "p");
+                    get_relevant_elems($(mutation.addedNodes), "strong");
+                    get_relevant_elems($(mutation.target.children), "p");
+                    get_relevant_elems($(mutation.target.children), "strong");
                 /* trigger when a column is dismissed and reloaded */
                 } else if($(mutation.target).hasClass("columns-area")) {
-                    $(mutation.addedNodes).find("p").each(function(i) {
-                        search_and_delet(this);
-                    });
+                    get_relevant_elems($(mutation.addedNodes), "p");
+                    get_relevant_elems($(mutation.addedNodes), "strong");
                 /* trigger when a new post is added to a column, or a post is opened in more detail, or someone's profile is opened */
                 } else if($(mutation.target).hasClass("status__content") || $(mutation.target).hasClass("detailed-status__wrapper") || $(mutation.target).is("article")) {
-                    $(mutation.target).find("p").each(function(i) {
-                        search_and_delet(this);
-                    });
+                    get_relevant_elems($(mutation.target), "p");
+                    get_relevant_elems($(mutation.target), "strong");
                 /* trigger on page refresh */
                 } else if((($(mutation.target).hasClass("item-list")) && mutation.addedNodes.length == 1) || (($(mutation.target).hasClass("column")) && mutation.addedNodes.length == 0)) {
-                    $(mutation.target).find("p").each(function(i) {
-                        search_and_delet(this);
-                    });
+                    get_relevant_elems($(mutation.target), "p");
+                    get_relevant_elems($(mutation.target), "strong");
                 /* trigger on replying to a post */
                 } else if($(mutation.target).hasClass("compose-form")) {
-                    $(mutation.addedNodes).find("p").each(function(i) {
-                        search_and_delet(this);
-                    });
+                    get_relevant_elems($(mutation.addedNodes), "p");
+                    get_relevant_elems($(mutation.addedNodes), "strong");
                 }
             }
         }

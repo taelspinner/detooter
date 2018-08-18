@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         delet this
 // @namespace    https://github.com/fariparedes/detooter/
+// @version 1.0
 // @description  just try and fucking stop me
 // @include      https://yiff.life/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js

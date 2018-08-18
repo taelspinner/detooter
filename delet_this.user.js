@@ -1,9 +1,17 @@
 // ==UserScript==
 // @name         delet this
 // @namespace    https://github.com/fariparedes/detooter/
-// @version 1.0
+// @author       @fariparedes@yiff.life
+// @version      1.0
 // @description  just try and fucking stop me
 // @include      https://yiff.life/*
+// @include      https://mastodon.social/*
+// @include      https://chitter.xyz/*
+// @include      https://meow.social/*
+// @include      https://awoo.space/*
+// @include      https://cybre.space/*
+// @include      https://dragon.style/*
+// @include      https://computerfairi.es/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
 // ==/UserScript==
 

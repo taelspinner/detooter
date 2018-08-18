@@ -28,7 +28,6 @@ function search_and_delet(elem) {
 
 function delet(elem) {
     if(elem.innerText.match(/toot/i)) {
-        console.log(elem);
         elem.innerText = elem.innerText.replace(/toot/g,"post");
         elem.innerText = elem.innerText.replace(/Toot/g,"Post");
         elem.innerText = elem.innerText.replace(/TOOT/g,"POST");
@@ -40,7 +39,6 @@ $(document).ready(function() {
     var callback = function(mutationsList) {
         for(var mutation of mutationsList) {
             if(mutation.type == "childList") {
-                console.log(mutation);
                 /* trigger on initial post loading */
                 if($(mutation.target).hasClass("item-list")) {
                     $(mutation.target.children).find("p").each(function(i) {
@@ -56,6 +54,11 @@ $(document).ready(function() {
                     $(mutation.target).find("p").each(function(i) {
                         search_and_delet(this);
                     });
+                /* trigger on page refresh */
+                } else if((($(mutation.target).hasClass("item-list")) && mutation.addedNodes.length == 1) || (($(mutation.target).hasClass("column")) && mutation.addedNodes.length == 0)) {
+                    $(mutation.target).find("p").each(function(i) {
+                        search_and_delet(this);
+                    });
                 }
             }
         }
@@ -63,4 +66,8 @@ $(document).ready(function() {
     var observer = new MutationObserver(callback);
     observer.observe(document, config);
     $("button.button--block").text("Doot!");
+    /* if a specific status is open, this will catch it */
+    $("div.detailed-status__wrapper").find("p").each(function(i) {
+       search_and_delet(this);
+    });
 });

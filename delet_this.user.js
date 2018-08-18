@@ -15,10 +15,24 @@
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
 // ==/UserScript==
 
+function search_and_delet(elem) {
+    const spans = $(elem).find("span");
+    if(spans.length > 0) {
+        spans.each(function(i) {
+            delet(this);
+        });
+    } else {
+        delet(elem);
+    }
+}
+
 function delet(elem) {
-    elem.textContent = elem.textContent.replace(/toot/g,"post");
-    elem.textContent = elem.textContent.replace(/Toot/g,"Post");
-    elem.textContent = elem.textContent.replace(/TOOT/g,"POST");
+    if(elem.innerText.match(/toot/i)) {
+        console.log(elem);
+        elem.innerText = elem.innerText.replace(/toot/g,"post");
+        elem.innerText = elem.innerText.replace(/Toot/g,"Post");
+        elem.innerText = elem.innerText.replace(/TOOT/g,"POST");
+    }
 }
 
 $(document).ready(function() {
@@ -26,19 +40,21 @@ $(document).ready(function() {
     var callback = function(mutationsList) {
         for(var mutation of mutationsList) {
             if(mutation.type == "childList") {
+                console.log(mutation);
+                /* trigger on initial post loading */
                 if($(mutation.target).hasClass("item-list")) {
-                    if(mutation.addedNodes.length > 0) {
-                        $(mutation.addedNodes).find("p").each(function(i) {
-                            delet(this);
-                        });
-                    } else {
-                        $(mutation.target.children).find("p").each(function(i) {
-                            delet(this);
-                        });
-                    }
+                    $(mutation.target.children).find("p").each(function(i) {
+                        search_and_delet(this);
+                    });
+                /* trigger when a column is dismissed and reloaded */
                 } else if($(mutation.target).hasClass("columns-area")) {
                     $(mutation.addedNodes).find("p").each(function(i) {
-                        delet(this);
+                        search_and_delet(this);
+                    });
+                /* trigger when a new post is added to a column, or a post is opened in more detail */
+                } else if($(mutation.target).hasClass("status__content") || $(mutation.target).hasClass("detailed-status__wrapper")) {
+                    $(mutation.target).find("p").each(function(i) {
+                        search_and_delet(this);
                     });
                 }
             }

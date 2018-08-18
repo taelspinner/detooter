@@ -52,7 +52,6 @@ $(document).ready(function() {
     var config = { attributes: true, childList: true, subtree: true };
     var callback = function(mutationsList) {
         for(var mutation of mutationsList) {
-            console.log(mutation);
             if(mutation.type == "childList") {
                 /* trigger on initial post loading */
                 if($(mutation.target).hasClass("item-list")) {

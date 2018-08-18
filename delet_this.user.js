@@ -52,6 +52,7 @@ $(document).ready(function() {
     var config = { attributes: true, childList: true, subtree: true };
     var callback = function(mutationsList) {
         for(var mutation of mutationsList) {
+            console.log(mutation);
             if(mutation.type == "childList") {
                 /* trigger on initial post loading */
                 if($(mutation.target).hasClass("item-list")) {
@@ -66,14 +67,19 @@ $(document).ready(function() {
                     $(mutation.addedNodes).find("p").each(function(i) {
                         search_and_delet(this);
                     });
-                /* trigger when a new post is added to a column, or a post is opened in more detail */
-                } else if($(mutation.target).hasClass("status__content") || $(mutation.target).hasClass("detailed-status__wrapper")) {
+                /* trigger when a new post is added to a column, or a post is opened in more detail, or someone's profile is opened */
+                } else if($(mutation.target).hasClass("status__content") || $(mutation.target).hasClass("detailed-status__wrapper") || $(mutation.target).is("article")) {
                     $(mutation.target).find("p").each(function(i) {
                         search_and_delet(this);
                     });
                 /* trigger on page refresh */
                 } else if((($(mutation.target).hasClass("item-list")) && mutation.addedNodes.length == 1) || (($(mutation.target).hasClass("column")) && mutation.addedNodes.length == 0)) {
                     $(mutation.target).find("p").each(function(i) {
+                        search_and_delet(this);
+                    });
+                /* trigger on replying to a post */
+                } else if($(mutation.target).hasClass("compose-form")) {
+                    $(mutation.addedNodes).find("p").each(function(i) {
                         search_and_delet(this);
                     });
                 }

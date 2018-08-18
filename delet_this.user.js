@@ -21,6 +21,12 @@ function search_and_delet(elem) {
         spans.each(function(i) {
             delet(this);
         });
+        /* catch text in posts that have links */
+        $(elem).contents().filter(function() {
+            return this.nodeType === 3; //Node.TEXT_NODE
+        }).each(function(i) {
+            txt_delet(this);
+        });
     } else {
         delet(elem);
     }
@@ -34,6 +40,14 @@ function delet(elem) {
     }
 }
 
+function txt_delet(elem) {
+    if(elem.data.match(/toot/i)) {
+        elem.data = elem.data.replace(/toot/g,"post");
+        elem.data = elem.data.replace(/Toot/g,"Post");
+        elem.data = elem.data.replace(/TOOT/g,"POST");
+    }
+}
+
 $(document).ready(function() {
     var config = { attributes: true, childList: true, subtree: true };
     var callback = function(mutationsList) {
@@ -41,6 +55,9 @@ $(document).ready(function() {
             if(mutation.type == "childList") {
                 /* trigger on initial post loading */
                 if($(mutation.target).hasClass("item-list")) {
+                    $(mutation.addedNodes).find("p").each(function(i) {
+                        search_and_delet(this);
+                    });
                     $(mutation.target.children).find("p").each(function(i) {
                         search_and_delet(this);
                     });

@@ -2,7 +2,7 @@
 // @name         delet this
 // @namespace    https://github.com/fariparedes/detooter/
 // @author       @fariparedes@yiff.life
-// @version      1.0
+// @version      1.1
 // @description  just try and fucking stop me
 // @include      https://yiff.life/*
 // @include      https://mastodon.social/*
@@ -11,7 +11,6 @@
 // @include      https://awoo.space/*
 // @include      https://cybre.space/*
 // @include      https://dragon.style/*
-// @include      https://computerfairi.es/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
 // ==/UserScript==
 
@@ -70,6 +69,7 @@ $(document).ready(function() {
                     get_relevant_elems($(mutation.addedNodes), "h5"); //replace the search header too
                     get_relevant_elems($(mutation.addedNodes), "p");
                     get_relevant_elems($(mutation.addedNodes), "strong");
+                    get_relevant_elems($(mutation.target), "button"); //when you reply to a post it resets the button
                 }
             }
         }

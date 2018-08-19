@@ -59,7 +59,7 @@ $(document).ready(function() {
                     get_relevant_elems($(mutation.addedNodes), "p");
                     get_relevant_elems($(mutation.addedNodes), "strong");
                     get_relevant_elems($(mutation.addedNodes), "div.notification__message a"); //fave/boost notif names aren't in strong tags
-                    get_relevant_elems($(mutation.addedNodes), ".account__header__display-name"); //if left open on page refresh
+                    get_relevant_elems($(mutation.addedNodes), ".account__header__display-name");
                     get_relevant_elems($(mutation.addedNodes), ".account__header__content");
                     get_relevant_elems($(mutation.addedNodes), ".account__section-headline");
                     get_relevant_elems($(mutation.addedNodes), ".account__action-bar");
@@ -67,13 +67,17 @@ $(document).ready(function() {
                     get_relevant_elems($(mutation.target.children), "p");
                     get_relevant_elems($(mutation.target.children), "strong");
                     get_relevant_elems($(mutation.target.children), "div.notification__message a");
+                    get_relevant_elems($(mutation.target.children), ".account__header__display-name");
+                    get_relevant_elems($(mutation.target.children), ".account__header__content");
+                    get_relevant_elems($(mutation.target.children), ".account__section-headline");
+                    get_relevant_elems($(mutation.target.children), ".account__action-bar");
+                    get_relevant_elems($(mutation.target.children), "div.status__wrapper");
                 /* trigger when a column is dismissed and reloaded */
                 } else if($(mutation.target).hasClass("columns-area")) {
-                    console.log($(mutation.addedNodes).find("div.account__header"));
                     get_relevant_elems($(mutation.addedNodes), "p");
                     get_relevant_elems($(mutation.addedNodes), "strong");
                     get_relevant_elems($(mutation.addedNodes), "div.notification__message a");
-                    get_relevant_elems($(mutation.addedNodes), ".account__header__display-name"); //if left open on page refresh
+                    get_relevant_elems($(mutation.addedNodes), ".account__header__display-name");
                     get_relevant_elems($(mutation.addedNodes), ".account__header__content");
                     get_relevant_elems($(mutation.addedNodes), ".account__section-headline");
                     get_relevant_elems($(mutation.addedNodes), ".account__action-bar");
@@ -88,6 +92,11 @@ $(document).ready(function() {
                     get_relevant_elems($(mutation.target), "p");
                     get_relevant_elems($(mutation.target), "strong");
                     get_relevant_elems($(mutation.target), "div.notification__message a");
+                    get_relevant_elems($(mutation.target), ".account__header__display-name");
+                    get_relevant_elems($(mutation.target), ".account__header__content");
+                    get_relevant_elems($(mutation.target), ".account__section-headline");
+                    get_relevant_elems($(mutation.target), ".account__action-bar");
+                    get_relevant_elems($(mutation.target), "div.status__wrapper");
                 /* trigger on replying to a post or opening one in search */
                 } else if($(mutation.target).hasClass("compose-form") || $(mutation.target).hasClass("search-results")) {
                     get_relevant_elems($(mutation.addedNodes), "h5"); //replace the search header too

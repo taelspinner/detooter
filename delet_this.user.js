@@ -2,15 +2,23 @@
 // @name         delet this
 // @namespace    https://github.com/fariparedes/detooter/
 // @author       @fariparedes@yiff.life
-// @version      1.1
+// @version      1.2
 // @description  just try and fucking stop me
 // @include      https://yiff.life/*
-// @include      https://mastodon.social/*
 // @include      https://chitter.xyz/*
 // @include      https://meow.social/*
 // @include      https://awoo.space/*
 // @include      https://cybre.space/*
 // @include      https://dragon.style/*
+// @include      https://scalie.business/*
+// @include      https://monsterpit.net/*
+// @include      https://sergal.org/*
+// @include      https://uwu.st/*
+// @include      https://queer.party/*
+// @include      https://scalie.club/*
+// @include      https://mastodon.social/*
+// @include      https://octodon.social/*
+// @include      https://mastodon.cloud/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
 // ==/UserScript==
 
@@ -50,20 +58,25 @@ $(document).ready(function() {
                 if($(mutation.target).hasClass("item-list")) {
                     get_relevant_elems($(mutation.addedNodes), "p");
                     get_relevant_elems($(mutation.addedNodes), "strong");
+                    get_relevant_elems($(mutation.addedNodes), "div.notification__message a"); //fave/boost notif names aren't in strong tags
                     get_relevant_elems($(mutation.target.children), "p");
                     get_relevant_elems($(mutation.target.children), "strong");
+                    get_relevant_elems($(mutation.target.children), "div.notification__message a");
                 /* trigger when a column is dismissed and reloaded */
                 } else if($(mutation.target).hasClass("columns-area")) {
                     get_relevant_elems($(mutation.addedNodes), "p");
                     get_relevant_elems($(mutation.addedNodes), "strong");
+                    get_relevant_elems($(mutation.addedNodes), "div.notification__message a");
                 /* trigger when a new post is added to a column, or a post is opened in more detail, or someone's profile is opened */
                 } else if($(mutation.target).hasClass("status__content") || $(mutation.target).hasClass("detailed-status__wrapper") || $(mutation.target).is("article")) {
                     get_relevant_elems($(mutation.target), "p");
                     get_relevant_elems($(mutation.target), "strong");
+                    get_relevant_elems($(mutation.target), "div.notification__message a");
                 /* trigger on page refresh */
-                } else if((($(mutation.target).hasClass("item-list")) && mutation.addedNodes.length == 1) || (($(mutation.target).hasClass("column")) && mutation.addedNodes.length == 0)) {
+                } else if(($(mutation.target).hasClass("column")) && mutation.addedNodes.length == 0) {
                     get_relevant_elems($(mutation.target), "p");
                     get_relevant_elems($(mutation.target), "strong");
+                    get_relevant_elems($(mutation.target), "div.notification__message a");
                 /* trigger on replying to a post or opening one in search */
                 } else if($(mutation.target).hasClass("compose-form") || $(mutation.target).hasClass("search-results")) {
                     get_relevant_elems($(mutation.addedNodes), "h5"); //replace the search header too

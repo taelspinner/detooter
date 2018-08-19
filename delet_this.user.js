@@ -2,7 +2,7 @@
 // @name         delet this
 // @namespace    https://github.com/fariparedes/detooter/
 // @author       @fariparedes@yiff.life
-// @version      1.2
+// @version      1.3
 // @description  just try and fucking stop me
 // @include      https://yiff.life/*
 // @include      https://chitter.xyz/*
@@ -59,14 +59,25 @@ $(document).ready(function() {
                     get_relevant_elems($(mutation.addedNodes), "p");
                     get_relevant_elems($(mutation.addedNodes), "strong");
                     get_relevant_elems($(mutation.addedNodes), "div.notification__message a"); //fave/boost notif names aren't in strong tags
+                    get_relevant_elems($(mutation.addedNodes), ".account__header__display-name"); //if left open on page refresh
+                    get_relevant_elems($(mutation.addedNodes), ".account__header__content");
+                    get_relevant_elems($(mutation.addedNodes), ".account__section-headline");
+                    get_relevant_elems($(mutation.addedNodes), ".account__action-bar");
+                    get_relevant_elems($(mutation.addedNodes), "div.status__wrapper");
                     get_relevant_elems($(mutation.target.children), "p");
                     get_relevant_elems($(mutation.target.children), "strong");
                     get_relevant_elems($(mutation.target.children), "div.notification__message a");
                 /* trigger when a column is dismissed and reloaded */
                 } else if($(mutation.target).hasClass("columns-area")) {
+                    console.log($(mutation.addedNodes).find("div.account__header"));
                     get_relevant_elems($(mutation.addedNodes), "p");
                     get_relevant_elems($(mutation.addedNodes), "strong");
                     get_relevant_elems($(mutation.addedNodes), "div.notification__message a");
+                    get_relevant_elems($(mutation.addedNodes), ".account__header__display-name"); //if left open on page refresh
+                    get_relevant_elems($(mutation.addedNodes), ".account__header__content");
+                    get_relevant_elems($(mutation.addedNodes), ".account__section-headline");
+                    get_relevant_elems($(mutation.addedNodes), ".account__action-bar");
+                    get_relevant_elems($(mutation.addedNodes), "div.status__wrapper");
                 /* trigger when a new post is added to a column, or a post is opened in more detail, or someone's profile is opened */
                 } else if($(mutation.target).hasClass("status__content") || $(mutation.target).hasClass("detailed-status__wrapper") || $(mutation.target).is("article")) {
                     get_relevant_elems($(mutation.target), "p");
